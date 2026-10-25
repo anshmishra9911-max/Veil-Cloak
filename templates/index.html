@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veil — The Invisibility Cloak Studio</title>
+<meta name="description" content="A real-time 3D invisibility cloak in your browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div id="loader" aria-hidden="true">
+  <svg viewBox="0 0 100 120" width="110"><path class="cloak" d="M50 8c-14 0-22 10-22 22 0 10-14 20-18 40-3 16-4 38-4 44h88c0-6-1-28-4-44-4-20-18-30-18-40 0-12-8-22-22-22z"/></svg>
+  <p>Fading from view…</p>
+</div>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<header class="nav">
+  <a href="#top" class="logo" id="logo">🧥 Veil</a>
+  <nav><a href="#studio">Studio</a><a href="#features">Features</a><a href="#how">How it works</a><a href="#quotes">Quotes</a></nav>
+</header>
+
+<main id="top">
+<section class="hero">
+  <span class="float f1" data-depth=".15">🧥</span><span class="float f2" data-depth=".3">✨</span><span class="float f3" data-depth=".1">🧙</span>
+  <h1 class="shimmer">Disappear. Elegantly.</h1>
+  <p class="sub">A real-time invisibility cloak for your webcam. Hold up a cloth, vanish behind it.</p>
+  <p class="rotator" id="rotator" aria-live="polite"></p>
+  <a href="#studio" class="btn pulse">Enter the studio</a>
+</section>
+
+<div class="ticker" aria-hidden="true"><div id="ticker"></div></div>
+
+<section id="studio" class="wrap">
+  <h2>The Studio</h2>
+  <div class="studio">
+    <div class="glass gborder stage-box">
+      <div id="stage"><p id="stage-msg"></p></div>
+      <p id="countdown" class="countdown" role="status">Start the camera, then calibrate.</p>
+      <div class="row">
+        <button class="btn" id="btn-cam">Start camera</button>
+        <button class="btn ghost" id="btn-cal">Calibrate background</button>
+      </div>
+      <p id="cam-error" class="error" hidden></p>
+    </div>
+    <aside class="glass panel">
+      <h3>Cloak colour <span id="color-name"></span></h3>
+      <div id="swatches" class="swatches"></div>
+      <label>Colour tolerance <output id="o-th"></output><input type="range" id="threshold" min="5" max="80" value="30"></label>
+      <label>Opacity <output id="o-op"></output><input type="range" id="opacity" min="0" max="100" value="90"></label>
+      <label>Blend mode
+        <select id="blend"><option value="solid">Solid — full vanish</option><option value="ghost">Ghost — glassy</option><option value="shimmer">Shimmer — rippling</option></select>
+      </label>
+      <h3>Saved setups</h3>
+      <div id="slots" class="slots"></div>
+      <button class="btn ghost" id="btn-save">Save to active slot</button>
+    </aside>
+  </div>
+</section>
+
+<section id="features" class="wrap">
+  <h2>Features</h2>
+  <div class="cards">
+    <article class="glass card"><h3>Live 3D stage</h3><p>Your feed floats in a WebGL scene that tilts with your cursor.</p></article>
+    <article class="glass card"><h3>24 cloak colours</h3><p>From Crimson to Midnight Blue, including metallics and neutrals.</p></article>
+    <article class="glass card"><h3>5 instant setups</h3><p>Save colour, tolerance, opacity and blend, then switch in one tap.</p></article>
+    <article class="glass card"><h3>Private by design</h3><p>Video is processed in your browser and never uploaded.</p></article>
+  </div>
+</section>
+
+<section id="how" class="wrap">
+  <h2>How it works</h2>
+  <ol class="steps">
+    <li><b>Start the camera</b> and allow access when asked.</li>
+    <li><b>Calibrate:</b> step out of frame for three seconds so Veil memorises the empty background.</li>
+    <li><b>Pick your colour</b> to match your cloth, and tune the tolerance.</li>
+    <li><b>Step back in</b> and hold up the cloth. Every pixel of that colour is swapped for the saved background.</li>
+  </ol>
+</section>
+
+<section id="quotes" class="wrap">
+  <h2>Words from the unseen</h2>
+  <div id="quote-cards" class="cards quotes"></div>
+</section>
+</main>
+
+<footer>
+  <p>Made with Flask, Three.js and a suspicious amount of cloth.</p>
+  <p class="egg">Psst… click the logo five times.</p>
+</footer>
+<div id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
